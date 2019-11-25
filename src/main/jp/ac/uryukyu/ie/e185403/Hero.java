@@ -16,8 +16,8 @@ public class Hero extends LivingThing{
      * @param maximumHP ヒーローのHP
      * @param attack ヒーローの攻撃力
      */
-    public Hero (String name, int maximumHP, int attack) {
-        super(name,maximumHP,attack);
+    public Hero (String name, int maximumHP, int attack,boolean dead) {
+        super(name,maximumHP,attack,dead);
     }
 
     /**
@@ -37,11 +37,13 @@ public class Hero extends LivingThing{
      * @param damage 受けたダメージ
      */
     @Override
-    public void wounded(int damage){
-        hitPoint -= damage;
-        if( hitPoint <= 0 ) {
-            dead = true;
-            System.out.printf("勇者%sは道半ばで力尽きてしまった。\n", name);
+    public void wounded(int damage) {
+        int hitpoint = getHitpoint();
+        hitpoint -= damage;
+        setHitPoint(hitpoint);
+        if (hitpoint <= 0) {
+            setIsDead(true);
+            System.out.printf("勇者%sは道半ばで力尽きてしまった。\n", getName());
         }
     }
 }
